@@ -1,0 +1,12 @@
+body {
+  background: linear-gradient(
+      180deg,
+      rgba(230, 240, 255, 0.8) 0%,
+      rgba(204, 224, 255, 0.8) 100%
+    ),
+    url("/gridbg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
