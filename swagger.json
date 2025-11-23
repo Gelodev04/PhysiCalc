@@ -1,0 +1,1051 @@
+{
+  "definitions": {},
+  "info": {
+    "description": "A modular physics calculation engine for Kinematics, Forces, Electricity, and more.",
+    "title": "PhysiCalc API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/electricity/current": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "resistance": {
+                  "description": "Resistance (Ω)",
+                  "example": 4,
+                  "type": "number"
+                },
+                "voltage": {
+                  "description": "Voltage (V)",
+                  "example": 12,
+                  "type": "number"
+                }
+              },
+              "required": ["voltage", "resistance"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Current (Amperes)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input or Zero Division"
+          }
+        },
+        "summary": "Calculate Current (I)",
+        "tags": ["Electricity"]
+      }
+    },
+    "/api/electricity/power": {
+      "post": {
+        "description": "Calculates power using any two available variables (V, I, R).",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "current": {
+                  "description": "Current (A)",
+                  "example": 2,
+                  "type": "number"
+                },
+                "resistance": {
+                  "description": "Resistance (Ω)",
+                  "type": "number"
+                },
+                "voltage": {
+                  "description": "Voltage (V)",
+                  "example": 10,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Power (Watts)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input or Missing Fields"
+          }
+        },
+        "summary": "Calculate Power (P)",
+        "tags": ["Electricity"]
+      }
+    },
+    "/api/electricity/resistance": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "current": {
+                  "description": "Current (A)",
+                  "example": 5,
+                  "type": "number"
+                },
+                "voltage": {
+                  "description": "Voltage (V)",
+                  "example": 220,
+                  "type": "number"
+                }
+              },
+              "required": ["voltage", "current"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Resistance (Ohms)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input or Zero Division"
+          }
+        },
+        "summary": "Calculate Resistance (R)",
+        "tags": ["Electricity"]
+      }
+    },
+    "/api/electricity/voltage": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "current": {
+                  "description": "Current (A)",
+                  "example": 2,
+                  "type": "number"
+                },
+                "resistance": {
+                  "description": "Resistance (Ω)",
+                  "example": 5,
+                  "type": "number"
+                }
+              },
+              "required": ["current", "resistance"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Voltage (Volts)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Voltage (V)",
+        "tags": ["Electricity"]
+      }
+    },
+    "/api/forces/applied": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "force": {
+                  "description": "The applied force value",
+                  "example": 150,
+                  "type": "number"
+                }
+              },
+              "required": ["force"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful return",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Applied Force (Newtons)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Return Applied Force",
+        "tags": ["Forces"]
+      }
+    },
+    "/api/forces/electromagnetic": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "q1": {
+                  "description": "Charge 1 (Coulombs)",
+                  "example": 1.602e-19,
+                  "type": "number"
+                },
+                "q2": {
+                  "description": "Charge 2 (Coulombs)",
+                  "example": -1.602e-19,
+                  "type": "number"
+                },
+                "r": {
+                  "description": "Distance (m)",
+                  "example": 5.29e-11,
+                  "type": "number"
+                }
+              },
+              "required": ["q1", "q2", "r"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Electromagnetic Force (Newtons)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Electromagnetic Force",
+        "tags": ["Forces"]
+      }
+    },
+    "/api/forces/friction": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "mu": {
+                  "description": "Coefficient of Friction (μ)",
+                  "example": 0.5,
+                  "type": "number"
+                },
+                "normal_force": {
+                  "description": "Normal Force (N)",
+                  "example": 98,
+                  "type": "number"
+                }
+              },
+              "required": ["mu", "normal_force"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Frictional Force (Newtons)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Frictional Force (F_f)",
+        "tags": ["Forces"]
+      }
+    },
+    "/api/forces/gravitational": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "m1": {
+                  "description": "Mass 1 (kg)",
+                  "example": "5.972e24",
+                  "type": "number"
+                },
+                "m2": {
+                  "description": "Mass 2 (kg)",
+                  "example": "7.348e22",
+                  "type": "number"
+                },
+                "r": {
+                  "description": "Distance (m)",
+                  "example": 384400000,
+                  "type": "number"
+                }
+              },
+              "required": ["m1", "m2", "r"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Gravitational Force (Newtons)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Gravitational Force",
+        "tags": ["Forces"]
+      }
+    },
+    "/api/forces/normal": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "mass": {
+                  "description": "Mass (kg)",
+                  "example": 10,
+                  "type": "number"
+                }
+              },
+              "required": ["mass"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Normal Force (Newtons)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Normal Force (N)",
+        "tags": ["Forces"]
+      }
+    },
+    "/api/forces/tension": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "mass": {
+                  "description": "Mass (kg)",
+                  "example": 5,
+                  "type": "number"
+                }
+              },
+              "required": ["mass"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Tension Force (Newtons)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Tension Force (T)",
+        "tags": ["Forces"]
+      }
+    },
+    "/api/kinematics/acceleration": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "t": {
+                  "description": "Time (s)",
+                  "example": 10,
+                  "type": "number"
+                },
+                "u": {
+                  "description": "Initial Velocity (m/s)",
+                  "example": 0,
+                  "type": "number"
+                },
+                "v": {
+                  "description": "Final Velocity (m/s)",
+                  "example": 50,
+                  "type": "number"
+                }
+              },
+              "required": ["v", "u", "t"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Acceleration (m/s^2)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Acceleration (a)",
+        "tags": ["Kinematics"]
+      }
+    },
+    "/api/kinematics/displacement": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "a": {
+                  "description": "Acceleration (m/s^2)",
+                  "example": 9.8,
+                  "type": "number"
+                },
+                "t": {
+                  "description": "Time (s)",
+                  "example": 10,
+                  "type": "number"
+                },
+                "u": {
+                  "description": "Initial Velocity (m/s)",
+                  "example": 0,
+                  "type": "number"
+                }
+              },
+              "required": ["u", "a", "t"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Displacement (meters)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Displacement (s)",
+        "tags": ["Kinematics"]
+      }
+    },
+    "/api/kinematics/time": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "a": {
+                  "description": "Acceleration (m/s^2)",
+                  "example": 9.8,
+                  "type": "number"
+                },
+                "u": {
+                  "description": "Initial Velocity (m/s)",
+                  "example": 0,
+                  "type": "number"
+                },
+                "v": {
+                  "description": "Final Velocity (m/s)",
+                  "example": 50,
+                  "type": "number"
+                }
+              },
+              "required": ["v", "u", "a"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Time (s)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Time (t)",
+        "tags": ["Kinematics"]
+      }
+    },
+    "/api/kinematics/velocity": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "a": {
+                  "description": "Acceleration (m/s^2)",
+                  "example": 9.8,
+                  "type": "number"
+                },
+                "t": {
+                  "description": "Time (s)",
+                  "example": 10,
+                  "type": "number"
+                },
+                "u": {
+                  "description": "Initial Velocity (m/s)",
+                  "example": 0,
+                  "type": "number"
+                }
+              },
+              "required": ["u", "a", "t"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Final Velocity",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid Input or Missing Fields"
+          }
+        },
+        "summary": "Calculate Final Velocity (v)",
+        "tags": ["Kinematics"]
+      }
+    },
+    "/api/kinematics/velocity_squared": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "a": {
+                  "description": "Acceleration (m/s^2)",
+                  "example": 9.8,
+                  "type": "number"
+                },
+                "s": {
+                  "description": "Displacement (m)",
+                  "example": 100,
+                  "type": "number"
+                },
+                "u": {
+                  "description": "Initial Velocity (m/s)",
+                  "example": 0,
+                  "type": "number"
+                }
+              },
+              "required": ["u", "a", "s"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "final_velocity": {
+                  "description": "The square root of result (v)",
+                  "type": "number"
+                },
+                "result": {
+                  "description": "Velocity Squared (v^2)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Final Velocity Squared (v^2)",
+        "tags": ["Kinematics"]
+      }
+    },
+    "/api/projectile/height": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "angle": {
+                  "description": "Angle of projection (degrees)",
+                  "example": 60,
+                  "type": "number"
+                },
+                "u": {
+                  "description": "Initial Velocity (m/s)",
+                  "example": 20,
+                  "type": "number"
+                }
+              },
+              "required": ["u", "angle"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Maximum Height (meters)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Maximum Height (H)",
+        "tags": ["Projectile Motion"]
+      }
+    },
+    "/api/projectile/range": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "angle": {
+                  "description": "Angle of projection (degrees)",
+                  "example": 45,
+                  "type": "number"
+                },
+                "u": {
+                  "description": "Initial Velocity (m/s)",
+                  "example": 20,
+                  "type": "number"
+                }
+              },
+              "required": ["u", "angle"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Range (meters)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Horizontal Range (R)",
+        "tags": ["Projectile Motion"]
+      }
+    },
+    "/api/projectile/time": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "angle": {
+                  "description": "Angle of projection (degrees)",
+                  "example": 30,
+                  "type": "number"
+                },
+                "u": {
+                  "description": "Initial Velocity (m/s)",
+                  "example": 20,
+                  "type": "number"
+                }
+              },
+              "required": ["u", "angle"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Time (seconds)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Time of Flight (T)",
+        "tags": ["Projectile Motion"]
+      }
+    },
+    "/api/work_energy/kinetic": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "mass": {
+                  "description": "Mass (kg)",
+                  "example": 2,
+                  "type": "number"
+                },
+                "velocity": {
+                  "description": "Velocity (m/s)",
+                  "example": 10,
+                  "type": "number"
+                }
+              },
+              "required": ["mass", "velocity"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Kinetic Energy (Joules)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Kinetic Energy (KE)",
+        "tags": ["Work & Energy"]
+      }
+    },
+    "/api/work_energy/potential": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "height": {
+                  "description": "Height (m)",
+                  "example": 5,
+                  "type": "number"
+                },
+                "mass": {
+                  "description": "Mass (kg)",
+                  "example": 10,
+                  "type": "number"
+                }
+              },
+              "required": ["mass", "height"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Potential Energy (Joules)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Potential Energy (PE)",
+        "tags": ["Work & Energy"]
+      }
+    },
+    "/api/work_energy/power": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "time": {
+                  "description": "Time (s)",
+                  "example": 10,
+                  "type": "number"
+                },
+                "work": {
+                  "description": "Work (J)",
+                  "example": 500,
+                  "type": "number"
+                }
+              },
+              "required": ["work", "time"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Power (Watts)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Mechanical Power (P)",
+        "tags": ["Work & Energy"]
+      }
+    },
+    "/api/work_energy/work": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "distance": {
+                  "description": "Distance (m)",
+                  "example": 10,
+                  "type": "number"
+                },
+                "force": {
+                  "description": "Force (N)",
+                  "example": 50,
+                  "type": "number"
+                }
+              },
+              "required": ["force", "distance"],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "properties": {
+                "result": {
+                  "description": "Work (Joules)",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "summary": "Calculate Work (W)",
+        "tags": ["Work & Energy"]
+      }
+    }
+  },
+  "swagger": "2.0"
+}
