@@ -68,9 +68,9 @@ function CalculatorContainer() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
       <Card className="p-6">
-        <div className="flex flex-row gap-6 items-start">
+        <div className="flex flex-col lg:flex-row gap-6 items-start">
           {/* main calculator */}
-          <div className="flex-1 max-w-4xl mx-auto space-y-5  ">
+          <div className="flex-1 w-full lg:max-w-4xl lg:mx-auto space-y-5 order-2 lg:order-1">
             <MainCalculator
               selectedFormulaId={selectedFormulaId}
               formulaConfig={formulaConfig}
@@ -107,7 +107,7 @@ function CalculatorContainer() {
             />
           </div>
 
-          <div className="w-80 shrink-0">
+          <div className="w-full lg:w-80 lg:shrink-0 order-1 lg:order-2">
             <FormulaContainer
               selectedFormulaId={selectedFormulaId}
               onFormulaSelect={setSelectedFormulaId}

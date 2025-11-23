@@ -20,7 +20,7 @@ function FormulaContainer({ selectedFormulaId, onFormulaSelect }) {
   };
 
   return (
-    <Card className="w-full sticky top-6 border-none">
+    <Card className="w-full sticky top-6">
       <CardHeader>
         <CardTitle className="text-2xl">Formulas</CardTitle>
       </CardHeader>

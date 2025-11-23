@@ -28,7 +28,7 @@ function ProblemInput({ onParse, isParsing, error, currentFormulaId }) {
   };
 
   return (
-    <Card className="w-full border-none shadow-none">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Sparkles className="h-5 w-5 text-primary" />

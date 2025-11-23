@@ -18,7 +18,7 @@ function MainCalculator({
   clearInputs,
 }) {
   return (
-    <Card className="w-full flex flex-col gap-6 p-6 border-none">
+    <Card className="w-full flex flex-col gap-6 p-6">
       {/* formula */}
       <FormulaDisplay
         formula={formulaConfig.formula}
