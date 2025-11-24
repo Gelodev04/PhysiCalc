@@ -98,7 +98,7 @@ function CalculatorContainer() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
-      <Card className="p-6">
+      <Card className="p-6 bg-white/50">
         <div className="flex flex-col lg:flex-row gap-6 items-start">
           {/* main calculator */}
           <div className="flex-1 w-full lg:max-w-4xl lg:mx-auto space-y-5 order-2 lg:order-1">
