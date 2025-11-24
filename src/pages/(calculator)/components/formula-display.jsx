@@ -24,7 +24,7 @@ function FormulaDisplay({ formula = "v = v₀ + at", formulaName }) {
       <h3 className="text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wide">
         {getFormulaLabel()}
       </h3>
-      <div className="w-full bg-white dark:bg-card border-2 border-border rounded-lg p-8 min-h-[350px] flex items-center justify-center shadow-sm">
+      <div className="w-full bg-gradient-to-br from-primary/5 via-card to-primary/5 dark:from-primary/10 dark:via-card dark:to-primary/10 border-2 border-primary/20 rounded-lg p-8 min-h-[350px] flex items-center justify-center shadow-sm">
         <div className="text-4xl md:text-5xl text-foreground">
           <BlockMath math={latexFormula} />
         </div>

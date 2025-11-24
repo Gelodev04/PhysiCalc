@@ -50,7 +50,7 @@
   --card-foreground: oklch(0.15 0.02 240);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.15 0.02 240);
-  --primary: oklch(0.5 0.15 240);
+  --primary: oklch(0.55 0.18 240);
   --primary-foreground: oklch(0.98 0.01 240);
   --secondary: oklch(0.96 0.02 240);
   --secondary-foreground: oklch(0.2 0.02 240);
@@ -59,9 +59,9 @@
   --accent: oklch(0.95 0.03 240);
   --accent-foreground: oklch(0.2 0.02 240);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.02 240);
-  --input: oklch(0.9 0.02 240);
-  --ring: oklch(0.5 0.15 240);
+  --border: oklch(0.88 0.03 240);
+  --input: oklch(0.92 0.02 240);
+  --ring: oklch(0.55 0.18 240);
   --chart-1: oklch(0.6 0.2 240);
   --chart-2: oklch(0.55 0.18 250);
   --chart-3: oklch(0.65 0.22 230);
@@ -116,9 +116,33 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 text-foreground;
+    @apply bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 dark:from-blue-950 dark:via-indigo-950 dark:to-blue-900 text-foreground;
     font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
       "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
       "Helvetica Neue", sans-serif;
   }
+}
+
+[data-sonner-toast][data-type="success"] {
+  background-color: rgb(240 253 244) !important;
+  color: rgb(22 101 52) !important;
+  border-color: rgb(187 247 208) !important;
+}
+
+.dark [data-sonner-toast][data-type="success"] {
+  background-color: rgb(20 83 45 / 0.2) !important;
+  color: rgb(187 247 208) !important;
+  border-color: rgb(34 197 94 / 0.3) !important;
+}
+
+[data-sonner-toast][data-type="error"] {
+  background-color: rgb(254 242 242) !important;
+  color: rgb(153 27 27) !important;
+  border-color: rgb(254 202 202) !important;
+}
+
+.dark [data-sonner-toast][data-type="error"] {
+  background-color: rgb(127 29 29 / 0.2) !important;
+  color: rgb(254 202 202) !important;
+  border-color: rgb(239 68 68 / 0.3) !important;
 }

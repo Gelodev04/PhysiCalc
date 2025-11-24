@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { parsePhysicsProblem } from "@/lib/ai-parser";
 import { Sparkles, Loader2, AlertCircle } from "lucide-react";
 
-function ProblemInput({ onParse, isParsing, error, currentFormulaId }) {
+function ProblemInput({ onParse, isParsing, currentFormulaId }) {
   const [problemText, setProblemText] = useState("");
 
   const handleParse = async () => {
@@ -15,12 +15,13 @@ function ProblemInput({ onParse, isParsing, error, currentFormulaId }) {
     try {
       const result = await parsePhysicsProblem(problemText, currentFormulaId);
       if (result.error) {
-        onParse(null, result.error);
+        onParse(null, null, result.error);
       } else {
-        onParse(result.formulaId, result.values);
+        onParse(result.formulaId, result.values, null);
       }
     } catch (error) {
       onParse(
+        null,
         null,
         error.message || "Failed to parse problem. Please try again."
       );
@@ -28,7 +29,7 @@ function ProblemInput({ onParse, isParsing, error, currentFormulaId }) {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full bg-card/95 border-primary/10">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Sparkles className="h-5 w-5 text-primary" />
@@ -79,12 +80,6 @@ function ProblemInput({ onParse, isParsing, error, currentFormulaId }) {
             </>
           )}
         </Button>
-
-        {error && (
-          <div className="bg-destructive/10 border border-destructive rounded-lg p-3">
-            <p className="text-sm text-destructive">{error}</p>
-          </div>
-        )}
       </CardContent>
     </Card>
   );

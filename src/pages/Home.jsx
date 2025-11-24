@@ -20,7 +20,7 @@ export default function Home() {
             <img
               src="/physiCalcLogo.png"
               alt="logo"
-              className="w-50 h-30 mx-auto block object-contain"
+              className="w-80 h-50 mx-auto block object-contain"
             />
           </AnimatedElement>
           <AnimatedElement delay={300}>
@@ -72,7 +72,7 @@ export default function Home() {
 
         {/* cta button */}
         <AnimatedElement delay={1100} className="flex justify-center">
-          <Link to="/calculator">
+          <Link to="/calculate">
             <Button size="lg" className="text-lg px-8 py-6">
               Get Started
               <Calculator className="ml-2 h-5 w-5" />

@@ -7,11 +7,11 @@ import ProblemInput from "./problem-input";
 import { Card } from "@/components/ui/card";
 import { useCalculator } from "@/hooks/useCalculator";
 import { getResultUnit } from "@/lib/utils";
+import { toast } from "sonner";
 
 function CalculatorContainer() {
   const [selectedFormulaId, setSelectedFormulaId] = useState("velocity");
   const [isParsing, setIsParsing] = useState(false);
-  const [parseError, setParseError] = useState(null);
   const pendingValuesRef = useRef(null);
   const {
     formulaConfig,
@@ -28,38 +28,69 @@ function CalculatorContainer() {
     if (pendingValuesRef.current && formulaConfig.id === selectedFormulaId) {
       const timer = setTimeout(() => {
         const valuesToSet = { ...pendingValuesRef.current };
+        const extractedCount = Object.keys(valuesToSet).filter(
+          (key) =>
+            valuesToSet[key] !== "" &&
+            valuesToSet[key] !== null &&
+            valuesToSet[key] !== undefined
+        ).length;
+
         setValuesDirectly(valuesToSet);
         pendingValuesRef.current = null;
         setIsParsing(false);
+
+        if (extractedCount > 0) {
+          toast.success(
+            `Successfully extracted ${extractedCount} value${
+              extractedCount > 1 ? "s" : ""
+            } from the problem!`
+          );
+        }
       }, 150);
 
       return () => clearTimeout(timer);
     }
   }, [formulaConfig.id, selectedFormulaId, setValuesDirectly]);
 
-  const handleProblemParse = async (formulaId, extractedValues) => {
+  const handleProblemParse = async (formulaId, extractedValues, error) => {
     setIsParsing(true);
-    setParseError(null);
 
     clearInputs();
 
     try {
+      if (error) {
+        toast.error(error);
+        setIsParsing(false);
+        return;
+      }
+
       if (formulaId) {
-        if (extractedValues && Object.keys(extractedValues).length > 0) {
+        const hasValidValues =
+          extractedValues &&
+          Object.keys(extractedValues).length > 0 &&
+          Object.values(extractedValues).some(
+            (value) => value !== "" && value !== null && value !== undefined
+          );
+
+        if (hasValidValues) {
           pendingValuesRef.current = extractedValues;
+        } else {
+          toast.error(
+            "No values could be extracted from the problem. Please enter the values manually or try rephrasing the problem."
+          );
+          setIsParsing(false);
+          return;
         }
 
         setSelectedFormulaId(formulaId);
       } else {
-        setParseError(
+        toast.error(
           "Could not identify a formula for this problem. Please try rephrasing."
         );
         setIsParsing(false);
       }
     } catch (err) {
-      setParseError(
-        err.message || "Failed to parse problem. Please try again."
-      );
+      toast.error(err.message || "Failed to parse problem. Please try again.");
       setIsParsing(false);
       pendingValuesRef.current = null;
     }
@@ -84,7 +115,6 @@ function CalculatorContainer() {
             <ProblemInput
               onParse={handleProblemParse}
               isParsing={isParsing}
-              error={parseError}
               currentFormulaId={selectedFormulaId}
             />
             <StepByStepSolution

@@ -48,7 +48,7 @@ function StepByStepSolution({
   }
 
   return (
-    <Card className="border-none shadow-none">
+    <Card className="border-none shadow-none bg-card/95">
       <CardHeader>
         <CardTitle className="text-xl">Step-by-Step Solution</CardTitle>
       </CardHeader>
@@ -56,14 +56,14 @@ function StepByStepSolution({
         <div className="space-y-4">
           {steps.map((step, index) => (
             <div key={index} className="flex gap-4">
-              <div className="shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm">
+              <div className="shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center font-semibold text-sm shadow-sm">
                 {step.step}
               </div>
               <div className="flex-1">
-                <h4 className="font-semibold text-sm text-muted-foreground mb-1">
+                <h4 className="font-semibold text-sm text-primary/80 mb-1">
                   {step.title}
                 </h4>
-                <div className="text-lg">
+                <div className="text-lg bg-muted/50 rounded-md p-2 border border-primary/10">
                   <InlineMath math={formulaToLaTeX(step.content)} />
                 </div>
               </div>
